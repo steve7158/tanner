@@ -15,9 +15,10 @@ config_template = {'DATA': {'db_config': '/opt/tanner/db/db_config.json',
                             },
                    'TANNER': {'host': '0.0.0.0', 'port': 8090},
                    'WEB': {'host': '0.0.0.0', 'port': 8091},
-                   'API': {'host': '0.0.0.0', 'port': 8092, 'auth': False, 'auth_signature': 'tanner_api_auth'},
+                   'API': {'host': '0.0.0.0', 'port': 8092},
                    'PHPOX': {'host': '0.0.0.0', 'port': 8088},
                    'REDIS': {'host': 'localhost', 'port': 6379, 'poolsize': 80, 'timeout': 1},
+                   'POSTGRES': {'host': 'localhost', 'port': 6379, 'poolsize': 80, 'timeout': 1, 'db_name':'tanner_db', 'user':'postgres', 'password':''},
                    'EMULATORS': {'root_dir': '/opt/tanner'},
                    'EMULATOR_ENABLED': {'sqli': True, 'rfi': True, 'lfi': True, 'xss': True, 'cmd_exec': True,
                                         'php_code_injection': True, 'php_object_injection': True, "crlf": True,
@@ -33,8 +34,7 @@ config_template = {'DATA': {'db_config': '/opt/tanner/db/db_config.json',
                    'LOCALLOG': {'enabled': False, 'PATH': '/tmp/tanner_report.json'},
                    'CLEANLOG': {'enabled': False},
                    'REMOTE_DOCKERFILE': {'GITHUB': "https://raw.githubusercontent.com/mushorg/tanner/master/docker/"
-                                                   "tanner/template_injection/Dockerfile"},
-                   'SESSIONS': {"delete_timeout": 300}
+                                                   "tanner/template_injection/Dockerfile"}
                    }
 
 
