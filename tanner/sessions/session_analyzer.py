@@ -21,9 +21,9 @@ class SessionAnalyzer:
         await asyncio.sleep(1, loop=self._loop)
         try:
             session = await redis_client.get(session_key, encoding='utf-8')
-            print(session, type(session))
+            # print(session, type(session))
             session = json.loads(session)
-            print(session, type(session))
+            # print(session, type(session))
         except (aioredis.ProtocolError, TypeError, ValueError) as error:
             self.logger.exception('Can\'t get session for analyze: %s', error)
         else:
@@ -88,7 +88,7 @@ class SessionAnalyzer:
         attack_types = []
         current_path = paths[0]
         dorks = await redis_client.smembers(DorksManager.dorks_key)
-
+        print(dorks, type(dorks))
         for _, path in enumerate(paths, start=1):
             tbr.append(path['timestamp'] - current_path['timestamp'])
             current_path = path
