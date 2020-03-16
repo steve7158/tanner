@@ -85,18 +85,18 @@ class SessionManager:
 
     async def delete_sessions_on_shutdown(self, redis_client):
         for sess_id, sess in self.sessions.items():
-            print(sess_id)
-            print('session_uuid')
-            print(sess.get_uuid())
-            print('to json')
-            print(sess.to_json())
+            # print(sess_id)
+            # print('session_uuid')
+            # print(sess.get_uuid())
+            # print('to json')
+            # print(sess.to_json())
             is_deleted = await self.delete_session(sess, redis_client)
             if is_deleted:
                 del self.sessions[sess_id]
-            print('session_uuid')
-            print(sess.get_uuid())
-            print('to json')
-            print(sess.to_json())
+            # print('session_uuid')
+            # print(sess.get_uuid())
+            # print('to json')
+            # print(sess.to_json())
 
     async def delete_session(self, sess, redis_client):
         await sess.remove_associated_db()
@@ -104,8 +104,8 @@ class SessionManager:
             await sess.remove_associated_env()
         try:
             await redis_client.set(sess.get_uuid(), sess.to_json())
-            print('done')
-            # debug=await redis_client.get(sess.get_uuid() ,encoding='utf8')
+            # print('done')
+            # debug=await redis_client.get(sess.get_uuid())
             # print(debug,type(debug))
             await self.analyzer.analyze(sess.get_uuid(), redis_client)
         except aioredis.ProtocolError as redis_error:
