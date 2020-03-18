@@ -31,12 +31,15 @@ class DorksManager:
                 dorks = dorks.split()
             if isinstance(dorks, set):
                 dorks = [x for x in dorks if x is not None]
+                print('dorks information:',dorks)
+
             await redis_client.sadd(redis_key, *dorks)
 
     async def extract_path(self, path, redis_client):
         extracted = re.match(patterns.QUERY, path)
         if extracted:
             extracted = extracted.group(0)
+            print('dorks/extract_path: ',extracted)
             try:
                 await redis_client.sadd(self.user_dorks_key, *[extracted])
             except aioredis.ProtocolError as connection_error:
