@@ -36,10 +36,10 @@ class SessionAnalyzer:
             session = await self.queue.get()
             s_key = session['snare_uuid']
             del_key = session['sess_uuid']
-            print('session start_time',session['start_time'])
-            print('session key',s_key)
-            print('delete session',del_key)
-            print(json.dumps(session))
+            # print('session start_time',session['start_time'])
+            # print('session key',s_key)
+            # print('delete session',del_key)
+            # print(json.dumps(session))
             try:
                 await redis_client.zadd(s_key, session['start_time'], json.dumps(session))
                 await redis_client.delete(*[del_key])

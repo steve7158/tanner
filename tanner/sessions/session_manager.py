@@ -104,9 +104,9 @@ class SessionManager:
             await sess.remove_associated_env()
         try:
             await redis_client.set(sess.get_uuid(), sess.to_json())
-            # print('done')
-            # debug=await redis_client.get(sess.get_uuid())
-            # print(debug,type(debug))
+            print('done')
+            debug=await redis_client.get(sess.get_uuid())
+            print(debug,type(debug))
             await self.analyzer.analyze(sess.get_uuid(), redis_client)
         except aioredis.ProtocolError as redis_error:
             self.logger.exception('Error connect to redis, session stay in memory. %s', redis_error)
