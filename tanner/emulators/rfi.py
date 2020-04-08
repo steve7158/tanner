@@ -1,5 +1,6 @@
 import asyncio
 import ftplib
+import aioftp
 import hashlib
 import logging
 import os
@@ -61,9 +62,12 @@ class RfiEmulator:
         ftp_path = url.path.rsplit('/', 1)[0][1:]
         name = url.name
         try:
-            ftp = ftplib.FTP(host)
+            # ftp = ftplib.FTP(host)
+            ftp=aioftp.Client
+            ftp.connect(host)
             ftp.login()
-            ftp.cwd(ftp_path)
+            # ftp.cwd(ftp_path)
+            ftp.change_directory(ftp_path)
             tmp_filename = name + str(time.time())
             file_name = hashlib.md5(tmp_filename.encode('utf-8')).hexdigest()
             with open(os.path.join(self.script_dir, file_name), 'wb') as ftp_script:

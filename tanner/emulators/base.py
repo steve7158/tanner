@@ -121,24 +121,35 @@ class BaseHandler:
         return injectable_page
 
     async def emulate(self, data, session):
+        print(data)
+        print(session)
         if data['method'] == 'POST':
             detection = await self.handle_post(session, data)
+            print('in POST')
         else:
             detection = await self.handle_get(session, data)
+            print('in GET')
 
         if 'payload' not in detection:
             detection['type'] = 1
+            print('payload not in detection')
         elif 'payload' in detection:
             if 'status_code' not in detection['payload']:
                 detection['type'] = 2
+                print('payload in detection but not status_code')
                 if detection['payload']['page']:
                     injectable_page = self.set_injectable_page(session)
+                    print('injectible page: ', injectable_page)
                     if injectable_page is None:
                         injectable_page = '/index.html'
+                        'print(injectible page is none)'
                     detection['payload']['page'] = injectable_page
             else:
                 detection['type'] = 3
+                print('status code in detection[payload]')
         detection['version'] = tanner_version
+        print('-'*30+'detection'+'-'*30)
+        print(detection)
         return detection
 
     async def handle(self, data, session):
